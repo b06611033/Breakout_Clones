@@ -95,7 +95,6 @@ public class Board extends JPanel implements KeyListener, ActionListener {
             g.drawString("Press 3 to restart in hard mode!" , 150, 570);
             g.setFont(new Font("serif", Font.BOLD, 50));
         }
-        //g.dispose();
     }
 
     @Override
