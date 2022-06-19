@@ -14,9 +14,6 @@ import java.util.Arrays;
         public int brickHeight;
         public Bricks(int rows, int cols) {
             bricksArray = new boolean[rows][cols];
-           /* boolean[] init = new boolean[cols];
-            Arrays.fill(init, true);
-            Arrays.fill(bricksArray, init);*/
             brickWidth = 600/cols;
             brickHeight = 240/rows;
         }
