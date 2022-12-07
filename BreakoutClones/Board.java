@@ -89,7 +89,7 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                 g.fillOval(ballPosX, ballPosY, 20, 20);
                 // bricks
                 bricks.doDrawing((Graphics2D) g, 2);
-            } else {
+            } else if (easyMode) {
                 g.drawImage(img1, 1, 1, 792, 792, 500, 1, 1600, 1500, this);
                 // border
                 g.setColor(new Color(34, 139, 34));
@@ -181,10 +181,13 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                             score++;
                             if (score > highScore)
                                 highScore = score;
-                            if (ballPosX + 19 <= 100 + brickWidth * j
-                                    || ballPosX + 1 >= 100 + brickWidth * (j + 1))
+                            if ((ballPosX + 19 >= 100 + brickWidth * j && ballPosX <= 100 + brickWidth * j - 16)
+                                    || (ballPosX - 1 <= 100 + brickWidth * (j + 1)
+                                            && ballPosX + 20 >= 100 + brickWidth * (j + 1) + 16))
                                 ballDirX = -ballDirX;
-                            else
+                            if ((ballPosY + 19 >= 50 + brickHeight * i && ballPosY <= 50 + brickHeight * i - 16)
+                                    || (ballPosY - 1 <= 50 + brickHeight * (i + 1)
+                                            && ballPosY + 20 >= 50 + brickHeight * (i + 1) + 16))
                                 ballDirY = -ballDirY;
                             bricks.brickDestroyed(i, j);
                             collided = true;
@@ -243,8 +246,8 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                 paddleX = 310;
                 ballPosX = 60 + r.nextInt(500);
                 ballPosY = 350 + r.nextInt(200);
-                ballDirX = -4 - r.nextInt(2);
-                ballDirY = -4 - r.nextInt(2);
+                ballDirX = -4 - r.nextInt(1);
+                ballDirY = -4 - r.nextInt(1);
                 row = 6;
                 col = 8;
                 bricks = new Bricks(row, col);
@@ -264,8 +267,8 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                 paddleX = 310;
                 ballPosX = 60 + r.nextInt(500);
                 ballPosY = 350 + r.nextInt(200);
-                ballDirX = -6 - r.nextInt(1);
-                ballDirY = -6 - r.nextInt(1);
+                ballDirX = -5 - r.nextInt(1);
+                ballDirY = -5 - r.nextInt(1);
                 row = 8;
                 col = 10;
                 bricks = new Bricks(row, col);
