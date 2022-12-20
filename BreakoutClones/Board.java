@@ -276,7 +276,7 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                 bricks = new Bricks(row, col);
                 brickWidth = 600 / 10;
                 brickHeight = 240 / 6;
-                brickNum = 80;
+                brickNum = 60;
                 firstGame = false;
                 showInstructions = true;
                 newGame = true;
