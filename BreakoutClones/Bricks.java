@@ -8,11 +8,15 @@ public class Bricks {
     private boolean[][] bricksArray;
     private int brickWidth;
     private int brickHeight;
+    private int rows;
+    private int cols;
 
     public Bricks(int rows, int cols) {
         bricksArray = new boolean[rows][cols];
         brickWidth = 600 / cols;
         brickHeight = 240 / rows;
+        this.rows = rows;
+        this.cols = cols;
     }
 
     public void doDrawing(Graphics2D g, int mode) {
@@ -37,6 +41,13 @@ public class Bricks {
 
     public boolean brickExists(int row, int col) {
         return !bricksArray[row][col];
+    }
+
+    public boolean surrounded(int row, int col) {
+        if (row == rows - 1 || row == 0 || col == cols - 1 || col == 0)
+            return false;
+        return !bricksArray[row][col - 1] && !bricksArray[row][col + 1] && !bricksArray[row + 1][col]
+                && !bricksArray[row - 1][col];
     }
 
     public void brickDestroyed(int row, int col) {
