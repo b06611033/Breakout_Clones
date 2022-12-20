@@ -177,18 +177,20 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                         Rectangle ballRect = new Rectangle(ballPosX, ballPosY, 20, 20);
                         Rectangle brickRect = new Rectangle(100 + brickWidth * j, 50 + brickHeight * i,
                                 brickWidth, brickHeight);
-                        if (ballRect.intersects(brickRect)) {
+                        if (ballRect.intersects(brickRect) && !bricks.surrounded(i, j)) {
                             score++;
                             if (score > highScore)
                                 highScore = score;
-                            if ((ballPosX + 19 >= 100 + brickWidth * j && ballPosX <= 100 + brickWidth * j - 16)
-                                    || (ballPosX - 1 <= 100 + brickWidth * (j + 1)
-                                            && ballPosX + 20 >= 100 + brickWidth * (j + 1) + 16))
+                            if ((ballPosX + 20 >= 100 + brickWidth * j && ballPosX <= 100 + brickWidth * j - 15)
+                                    || (ballPosX <= 100 + brickWidth * (j + 1)
+                                            && ballPosX + 20 >= 100 + brickWidth * (j + 1) + 15))
                                 ballDirX = -ballDirX;
-                            if ((ballPosY + 19 >= 50 + brickHeight * i && ballPosY <= 50 + brickHeight * i - 16)
-                                    || (ballPosY - 1 <= 50 + brickHeight * (i + 1)
-                                            && ballPosY + 20 >= 50 + brickHeight * (i + 1) + 16))
+
+                            if ((ballPosY + 20 >= 50 + brickHeight * i && ballPosY <= 50 + brickHeight * i - 15)
+                                    || (ballPosY <= 50 + brickHeight * (i + 1)
+                                            && ballPosY + 20 >= 50 + brickHeight * (i + 1) + 15))
                                 ballDirY = -ballDirY;
+
                             bricks.brickDestroyed(i, j);
                             collided = true;
                             break;
@@ -267,13 +269,13 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                 paddleX = 310;
                 ballPosX = 60 + r.nextInt(500);
                 ballPosY = 350 + r.nextInt(200);
-                ballDirX = -5 - r.nextInt(1);
-                ballDirY = -5 - r.nextInt(1);
-                row = 8;
+                ballDirX = -5;
+                ballDirY = -5;
+                row = 6;
                 col = 10;
                 bricks = new Bricks(row, col);
                 brickWidth = 600 / 10;
-                brickHeight = 240 / 8;
+                brickHeight = 240 / 6;
                 brickNum = 80;
                 firstGame = false;
                 showInstructions = true;
