@@ -4,9 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.Timer;
 import java.util.Random;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -48,9 +46,9 @@ public class Board extends JPanel implements KeyListener, ActionListener {
         timer = new Timer(delay, this);
         timer.start();
         try {
-            img3 = ImageIO.read(new File("C:/桌面/Breakout Clones/src/BreakoutClones/Stars.jpg"));
-            img2 = ImageIO.read(new File("C:/桌面/Breakout Clones/src/BreakoutClones/Ocean.png"));
-            img1 = ImageIO.read(new File("C:/桌面/Breakout Clones/src/BreakoutClones/Forest.jpg"));
+            img3 = ImageIO.read(new File("BreakoutClones/Stars.jpg"));
+            img2 = ImageIO.read(new File("BreakoutClones/Ocean.png"));
+            img1 = ImageIO.read(new File("BreakoutClones/Forest.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,7 +58,7 @@ public class Board extends JPanel implements KeyListener, ActionListener {
         if (newGame) {
             if (hardMode) {
                 // background
-                g.drawImage(img3, 1, 1, 792, 792, 1, 1, 1100, 1100, this);
+                g.drawImage(img3, 1, 1, 792, 792, 1, 1, img3.getWidth(), img3.getHeight(), this);
                 // border
                 g.setColor(new Color(51, 0, 102));
                 g.fillRect(0, 0, 792, 5);
@@ -75,7 +73,7 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                 // bricks
                 bricks.doDrawing((Graphics2D) g, 3);
             } else if (mediumMode) {
-                g.drawImage(img2, 1, 1, 792, 792, 600, 1, 1700, 1100, this);
+                g.drawImage(img2, 1, 1, 792, 792, 300, 1, 300 + img2.getHeight(), img2.getHeight(), this);
                 // border
                 g.setColor(new Color(0, 0, 102));
                 g.fillRect(0, 0, 792, 5);
@@ -90,7 +88,7 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                 // bricks
                 bricks.doDrawing((Graphics2D) g, 2);
             } else if (easyMode) {
-                g.drawImage(img1, 1, 1, 792, 792, 500, 1, 1600, 1500, this);
+                g.drawImage(img1, 1, 1, 792, 792, 300, 1, 300 + img1.getHeight(), img1.getHeight(), this);
                 // border
                 g.setColor(new Color(34, 139, 34));
                 g.fillRect(0, 0, 792, 5);
