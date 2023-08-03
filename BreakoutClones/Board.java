@@ -10,23 +10,23 @@ import java.io.File;
 import java.io.IOException;
 
 public class Board extends JPanel implements KeyListener, ActionListener {
-    private boolean play = false;
     private int score = 0;
     private int highScore = 0;
-    private int brickNum = 30;
-    private int brickWidth = 600 / 10;
-    private int brickHeight = 240 / 8;
-    private int row = 5;
-    private int col = 6;
+    private int brickNum = 100;
+    private int brickWidth;
+    private int brickHeight;
+    private int row;
+    private int col;
     private Timer timer;
     private int delay = 8;
-    private int paddleX = 310;
-    private int paddleLength = 100;
+    private int paddleX;
+    private final int paddleLength = 100;
     Random r = new Random();
     private int ballPosX;
     private int ballPosY;
     private int ballDirX;
     private int ballDirY;
+    private boolean play = false;
     private boolean showInstructions = false;
     private boolean newGame = false;
     private boolean firstGame = true;
@@ -157,7 +157,6 @@ public class Board extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e.toString());
         timer.start();
         if (play) {
             ballPosX += ballDirX;
