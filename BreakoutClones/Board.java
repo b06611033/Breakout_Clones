@@ -61,9 +61,7 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                 g.drawImage(img3, 1, 1, 792, 792, 1, 1, img3.getWidth(), img3.getHeight(), this);
                 // border
                 g.setColor(new Color(51, 0, 102));
-                g.fillRect(0, 0, 792, 5);
-                g.fillRect(782, 0, 5, 792);
-                g.fillRect(0, 0, 5, 792);
+                drawBorder(g);
                 // paddle
                 g.setColor(new Color(25, 25, 112));
                 g.fillRect(paddleX, 753, paddleLength, 10);
@@ -76,9 +74,7 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                 g.drawImage(img2, 1, 1, 792, 792, 300, 1, 300 + img2.getHeight(), img2.getHeight(), this);
                 // border
                 g.setColor(new Color(0, 0, 102));
-                g.fillRect(0, 0, 792, 5);
-                g.fillRect(782, 0, 5, 792);
-                g.fillRect(0, 0, 5, 792);
+                drawBorder(g);
                 // paddle
                 g.setColor(new Color(255, 127, 80));
                 g.fillRect(paddleX, 753, paddleLength, 10);
@@ -91,9 +87,7 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                 g.drawImage(img1, 1, 1, 792, 792, 300, 1, 300 + img1.getHeight(), img1.getHeight(), this);
                 // border
                 g.setColor(new Color(34, 139, 34));
-                g.fillRect(0, 0, 792, 5);
-                g.fillRect(782, 0, 5, 792);
-                g.fillRect(0, 0, 5, 792);
+                drawBorder(g);
                 // paddle
                 g.setColor(new Color(165, 42, 42));
                 g.fillRect(paddleX, 753, paddleLength, 10);
@@ -115,9 +109,7 @@ public class Board extends JPanel implements KeyListener, ActionListener {
         // game states
         if (firstGame) {
             g.setColor(new Color(0, 0, 0));
-            g.drawString("Press 1 to start in easy mode!", 150, 510);
-            g.drawString("Press 2 to start in medium mode!", 150, 540);
-            g.drawString("Press 3 to start in hard mode!", 150, 570);
+            showMode(g);
         }
         if (showInstructions) {
             if (mediumMode)
@@ -134,9 +126,7 @@ public class Board extends JPanel implements KeyListener, ActionListener {
             g.drawString("You won!", 150, 450);
             g.setColor(new Color(255, 255, 255));
             g.setFont(new Font("serif", Font.BOLD, 25));
-            g.drawString("Press 1 to restart in easy mode!", 150, 510);
-            g.drawString("Press 2 to restart in medium mode!", 150, 540);
-            g.drawString("Press 3 to restart in hard mode!", 150, 570);
+            showMode(g);
         } else if (ballPosY > 765) {
             play = false;
             newGame = false;
@@ -148,15 +138,26 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                 g.drawString("New High Score!", 150, 450);
             g.setColor(new Color(255, 255, 255));
             g.setFont(new Font("serif", Font.BOLD, 25));
-            g.drawString("Press 1 to restart in easy mode!", 150, 510);
-            g.drawString("Press 2 to restart in medium mode!", 150, 540);
-            g.drawString("Press 3 to restart in hard mode!", 150, 570);
+            showMode(g);
             g.setFont(new Font("serif", Font.BOLD, 50));
         }
     }
 
+    public void drawBorder(Graphics g) {
+        g.fillRect(0, 0, 792, 5);
+        g.fillRect(782, 0, 5, 792);
+        g.fillRect(0, 0, 5, 792);
+    }
+
+    public void showMode(Graphics g) {
+        g.drawString("Press 1 to restart in easy mode!", 150, 510);
+        g.drawString("Press 2 to restart in medium mode!", 150, 540);
+        g.drawString("Press 3 to restart in hard mode!", 150, 570);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println(e.toString());
         timer.start();
         if (play) {
             ballPosX += ballDirX;
@@ -203,10 +204,6 @@ public class Board extends JPanel implements KeyListener, ActionListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT && newGame) {
             if (paddleX > 680)
@@ -220,70 +217,39 @@ public class Board extends JPanel implements KeyListener, ActionListener {
                 moveLeft();
         } else if (e.getKeyCode() == KeyEvent.VK_1 && !newGame) {
             if (!play) {
-                score = 0;
-                paddleX = 310;
-                ballPosX = 60 + r.nextInt(500);
-                ballPosY = 350 + r.nextInt(200);
-                ballDirX = -3 - r.nextInt(1);
-                ballDirY = -3 - r.nextInt(1);
-                row = 5;
-                col = 6;
-                bricks = new Bricks(row, col);
-                brickWidth = 600 / 6;
-                brickHeight = 240 / 5;
-                brickNum = 30;
-                firstGame = false;
-                showInstructions = true;
-                newGame = true;
-                easyMode = true;
-                mediumMode = false;
-                hardMode = false;
-
+                reset(-3 - r.nextInt(1), -3 - r.nextInt(1), 5, 6, true, false, false);
             }
         } else if (e.getKeyCode() == KeyEvent.VK_2 && !newGame) {
             if (!play) {
-                score = 0;
-                paddleX = 310;
-                ballPosX = 60 + r.nextInt(500);
-                ballPosY = 350 + r.nextInt(200);
-                ballDirX = -4 - r.nextInt(1);
-                ballDirY = -4 - r.nextInt(1);
-                row = 6;
-                col = 8;
-                bricks = new Bricks(row, col);
-                brickWidth = 600 / 8;
-                brickHeight = 240 / 6;
-                brickNum = 48;
-                firstGame = false;
-                showInstructions = true;
-                newGame = true;
-                easyMode = false;
-                mediumMode = true;
-                hardMode = false;
+                reset(-4 - r.nextInt(1), -4 - r.nextInt(1), 6, 8, false, true, false);
             }
         } else if (e.getKeyCode() == KeyEvent.VK_3 && !newGame) {
             if (!play) {
-                score = 0;
-                paddleX = 310;
-                ballPosX = 60 + r.nextInt(500);
-                ballPosY = 350 + r.nextInt(200);
-                ballDirX = -5;
-                ballDirY = -5;
-                row = 6;
-                col = 10;
-                bricks = new Bricks(row, col);
-                brickWidth = 600 / 10;
-                brickHeight = 240 / 6;
-                brickNum = 60;
-                firstGame = false;
-                showInstructions = true;
-                newGame = true;
-                easyMode = false;
-                mediumMode = false;
-                hardMode = true;
+                reset(-5, -5, 6, 10, false, false, true);
             }
         }
 
+    }
+
+    public void reset(int ballDirX, int ballDirY, int row, int col, boolean easy, boolean medium, boolean hard) {
+        score = 0;
+        paddleX = 310;
+        ballPosX = 60 + r.nextInt(500);
+        ballPosY = 350 + r.nextInt(200);
+        this.ballDirX = ballDirX;
+        this.ballDirY = ballDirY;
+        this.row = row;
+        this.col = col;
+        bricks = new Bricks(row, col);
+        brickWidth = 600 / col;
+        brickHeight = 240 / row;
+        brickNum = row * col;
+        firstGame = false;
+        showInstructions = true;
+        newGame = true;
+        easyMode = easy;
+        mediumMode = medium;
+        hardMode = hard;
     }
 
     public void moveRight() {
@@ -296,6 +262,10 @@ public class Board extends JPanel implements KeyListener, ActionListener {
         play = true;
         showInstructions = false;
         paddleX -= 30;
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
     }
 
     @Override
